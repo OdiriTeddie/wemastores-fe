@@ -6,7 +6,7 @@
         <div class="popular-category-img">IMG</div>
         <div>
           <h4>{{ category.name }}</h4>
-          <span>8 products</span>
+          <span>{{ category.product_count }} products</span>
         </div>
       </div>
     </div>
@@ -20,6 +20,7 @@ interface Category {
   id: number
   name: string
   slug: string
+  product_count: number
 }
 
 const categoriesData = ref<Category[]>([])
@@ -27,7 +28,7 @@ const categoriesData = ref<Category[]>([])
 const fetchCategories = async () => {
   try {
     const response = await axios.get('http://wemastores.test/api/categories')
-    categoriesData.value = response.data
+    categoriesData.value = response.data.data
   } catch (error) {
     console.error(error)
   }
@@ -37,7 +38,7 @@ const fetchCategories = async () => {
 //   () => categoriesData,
 //   () => {
 //     console.log(categoriesData.value)
-//   },p
+//   },
 //   { immediate: true, deep: true },
 // )
 
